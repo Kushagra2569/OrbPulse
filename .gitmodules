@@ -1,0 +1,3 @@
+[submodule "internal/Core"]
+	path = internal/Core
+	url = https://github.com/Kushagra2569/OrbPulse-Core.git
