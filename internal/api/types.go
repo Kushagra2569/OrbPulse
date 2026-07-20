@@ -19,6 +19,23 @@ const (
 	Verisium           ItemType = "Verisium"
 )
 
+var AllItemTypes = []ItemType{
+	Currency,
+	Fragments,
+	Abyss,
+	UncutGems,
+	LineageSupportGems,
+	Essences,
+	SoulCores,
+	Idols,
+	Runes,
+	Ritual,
+	Expedition,
+	Delirium,
+	Breach,
+	Verisium,
+}
+
 type League string
 
 const (

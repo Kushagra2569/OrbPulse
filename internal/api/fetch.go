@@ -8,20 +8,19 @@ import (
 	"net/http"
 )
 
-func FetchCurrency(ctx context.Context, client *http.Client) {
-	fmt.Println("handler called")
-	currencyurl, _ := buildUrl(Currency, RunesOfAldur)
+func FetchType(ctx context.Context, client *http.Client, TypeValue ItemType) (MarketResponse, error) {
+	url, _ := buildUrl(TypeValue, RunesOfAldur)
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, currencyurl, nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		fmt.Println("req err: ", err)
-		return
+		return MarketResponse{}, err
 	}
 
 	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Println("resp err: ", err)
-		return
+		return MarketResponse{}, err
 	}
 
 	defer resp.Body.Close()
@@ -30,13 +29,12 @@ func FetchCurrency(ctx context.Context, client *http.Client) {
 		body, _ := io.ReadAll(resp.Body)
 		fmt.Println("Status:", resp.Status)
 		fmt.Println("Body:", string(body))
-		return
+		return MarketResponse{}, err
 	}
 
-	var response Response
+	var response MarketResponse
 
 	err = json.NewDecoder(resp.Body).Decode(&response)
 
-	fmt.Println(response.Core.Rates)
-
+	return response, nil
 }

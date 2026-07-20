@@ -1,9 +1,5 @@
 package api
 
-import (
-	"sync"
-)
-
 type CoreCurrency struct {
 	ID        string `json:"id"`
 	Name      string `json:"name"`
@@ -43,19 +39,8 @@ type Item struct {
 	DetailsID string `json:"detailsId"`
 }
 
-type Response struct {
+type MarketResponse struct {
 	Core  Core         `json:"core"`
 	Lines []MarketLine `json:"lines"`
-
-	Items []Item `json:"items"`
-}
-
-// TODO: initialise set and get for the market using locks
-type Market struct {
-	mu sync.RWMutex
-
-	Core  Core
-	Lines []MarketLine
-
-	Items map[string]Item
+	Items []Item       `json:"items"`
 }
