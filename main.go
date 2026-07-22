@@ -18,6 +18,7 @@ func main() {
 
 	ctx := context.Background()
 
+	//TODO: move all this in a async poller working parallely
 	var markets = market.NewMarkets()
 
 	for _, TypeValue := range api.AllItemTypes {
@@ -30,9 +31,14 @@ func main() {
 		markets.Set(TypeValue, marketValue)
 	}
 
-	for _, typeValue := range api.AllItemTypes {
-		market, _ := markets.GetMarket(typeValue)
-		fmt.Println((*market).Core)
-	}
+	// for _, typeValue := range api.AllItemTypes {
+	// 	market, _ := markets.GetMarket(typeValue)
+	// 	fmt.Println((*market).Core)
+	// }
+	market, _ := markets.GetMarket(api.Currency)
+	fmt.Println(market.Items["annul"].Name)
 
+	ratesmarkets, exists := markets.GetItem(api.Currency, "divine")
+	details, _ := api.FetchItemDetails(ctx, client, api.Currency, ratesmarkets.DetailsID)
+	fmt.Println("div", ratesmarkets.Name, "exists ", exists, details)
 }

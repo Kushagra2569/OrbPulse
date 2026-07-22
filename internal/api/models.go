@@ -1,5 +1,9 @@
 package api
 
+import (
+	"time"
+)
+
 type CoreCurrency struct {
 	ID        string `json:"id"`
 	Name      string `json:"name"`
@@ -43,4 +47,23 @@ type MarketResponse struct {
 	Core  Core         `json:"core"`
 	Lines []MarketLine `json:"lines"`
 	Items []Item       `json:"items"`
+}
+
+type PairHistory struct {
+	Timestamp          time.Time `json:"timestamp"`
+	Rate               float64   `json:"rate"`
+	VolumePrimaryValue float64   `json:"volumePrimaryValue"`
+}
+
+type Pair struct {
+	ID                 string        `json:"id"`
+	Rate               float64       `json:"rate"`
+	VolumePrimaryValue float64       `json:"volumePrimaryValue"`
+	History            []PairHistory `json:"history"`
+}
+
+type ItemDetailResponse struct {
+	Item  Item   `json:"item"`
+	Pairs []Pair `json:"pairs"`
+	Core  Core   `json:"core"`
 }
